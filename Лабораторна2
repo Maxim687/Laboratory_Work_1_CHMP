@@ -1,0 +1,52 @@
+#Перше завдання
+import numpy as np 
+import matplotlib.pyplot as plt 
+def f(x): 
+return x4-2*x2+2*x**2-6*x+1 
+a = 0 
+b = 1 
+eps = 0.001 
+def rec(a, b, eps): 
+if abs(f(b) - f(a)) <= eps: 
+print('Обчислюємо корінь') 
+return 
+mid = (a + b) / 2 
+if f(mid) == 0 or abs(f(mid)) <= eps: 
+print(f'Корінь знаходиться в точці x={mid}') 
+elif f(a) * f(mid) < 0: 
+rec(a, mid, eps) 
+else: 
+rec(mid, b, eps) 
+rec(a,b,eps) 
+x = np.arange(a, b, eps) 
+plt.plot(x, f(x)) 
+plt.xlabel('x') 
+plt.ylabel('y')
+#Друге завдання
+import sympy as sp 
+from sympy import * 
+a=0 
+b=1 
+eps=0.001 
+def f(x, switch): 
+f = x4-2*x2+2*x**2-6*x+1 
+fd1 = sp.diff(f) 
+fd2 = sp.diff(fd1) 
+if switch == 0: 
+return f 
+elif switch == 1: 
+return fd1 
+elif switch == 2: 
+return fd2 
+if f(a, 0)*f(a, 2) > 0: 
+x0 = a 
+xi = b 
+else: 
+x0 = b 
+xi = a 
+xi_1 = xi-((xi-x0)/(f(xi, 0)-f(x0, 0))*f(xi, 0)) 
+while abs(xi_1-xi)>eps: 
+xi = xi_1 
+xi_1 = xi-((xi-x0)/(f(xi, 0)-f(x0, 0))*f(xi, 0)) 
+else: 
+print (f'Корінь знаходиться в точці x = {xi_1}')
